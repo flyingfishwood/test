@@ -46,7 +46,7 @@ class test_init(unittest.TestCase):
         return headers
     def test_init(self):
         
-        params={'device-version':'2.2.0-demo','device-type':'android'}
+        params={'device-version':'2.4.0','device-type':'IOS','version':'2.4.0'}
         r = requests.get(self.url,params=params,headers=test_init.common_header(self))
         code =r.json()['code']
         print('app初始化',r.json())

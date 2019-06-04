@@ -24,8 +24,8 @@ class test_v2_4(unittest.TestCase):
     def setUp(self):
         self.url = "http://119.27.167.20:8083/member/loginout.json"
         self.url2 = "http://119.27.167.20:8083/common/praise.json"
-        self.url3 = "http://119.27.167.20:8083/collection/lists.json"
-        self.url4="http://119.27.167.20:8083/collection/modfavorite.json"
+        self.url3 = "http://119.27.167.20:8083/comment/del.json"
+        self.url4="http://119.27.167.20:8083/comment/barrage.json"
         self.url5="http://119.27.167.20:8083/collection/favoritecontents.json"
         self.url6="http://119.27.167.20:8083/upvote.json"
     def login_common(self):
@@ -56,14 +56,19 @@ class test_v2_4(unittest.TestCase):
         r = requests.get(self.url2,headers=con_login.common_header(self)) 
         msg=r.json()['msg']
         self.assertEqual(msg, '操作成功','FALSE')    
+    
     def test_del_comment(self):
-        pa=data.get_comment(self)
-        print(pa)
-        params={'relation_id':data.get_comment(self),'type':'1'}
-        r = requests.post(self.url3,data=params)
+        pa=data.test_get_comment_first(self)
         
-        print(r.json())
-        
+        params={'relation_id':data.test_get_comment_first(self),'type':'1'}
+        r = requests.post(self.url3,data=params,headers=con_login.common_header(self))
+        msg=r.json()['msg']
+        self.assertEqual(msg, '删除成功', 'failed')
+    def test_get_Barrage(self):
+        datas_1={'type':'1','relation_id':data.test_get_list(self)}   
+        r = requests.get(self.url4,params=datas_1)
+        msg=r.json()['msg']
+        self.assertEqual(msg, 'success','failed')
           
     
     

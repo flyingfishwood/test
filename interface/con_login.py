@@ -22,7 +22,8 @@ def common_header(self):
             'Accept-Language': 'zh-CN,zh;q=0.9',
             'Accept-Encoding': 'gzip, deflate',
             'Referer': 'http://119.27.167.20/',
-            'token':login_common(self)
+            'token':login_common(self),
+            'device-version':'2.4.2'
         }
     return headers
 def host(self):

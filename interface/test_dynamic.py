@@ -59,6 +59,7 @@ class post_dynamic(unittest.TestCase):
         
     def test_dynamic_er1(self):    
         parms = {'content':'123','access_type':'0','images':'/dynamic/20190226/1551173819_3227a4a0e7734815a032a4a17903f8ad.jpg'}
+        
         r2 = requests.post(self.url,data=parms,headers=post_dynamic.dynamic_header(self)) 
         
         string  = r2.json()['msg']
