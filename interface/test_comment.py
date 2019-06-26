@@ -68,7 +68,7 @@ class post_comment(unittest.TestCase):
         code=r.json()['code']
         print('评论内容为空' ,r.json())
         
-        if self.assertEqual(int(code), 300100, 'Fail'):
+        if self.assertEqual(int(code), 100011, 'Fail'):
             print('评论发布结果正确')
             
             
