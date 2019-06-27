@@ -6,12 +6,13 @@ import time
 import random
 import re
 import m3u8
+import bs4
 
-class ViedeoCrawler():
+class VideoCrawler():
     def __init__(self):
-        self.url=""
-        self.down_path = r"D:SpiderVideoSpiderDOWN"
-        self.final_path = r"SpiderFINAL"
+        self.url="http://www.baidu.com"
+        self.down_path = r'D:\video'
+        self.final_path = r"D:\SpiderFINAL"
         try:
             self.name = re.findall(r'/[A-Za-z]*-[0-9]*', self.url)[0][1:]
         except:
@@ -57,11 +58,15 @@ class ViedeoCrawler():
         os.chdir(self.down_path)
         html = requests.get(self.url).text
         bsobj = BeautifulSoup(html,'lxml')
-        realAdr = bsobj.find(id="video-player").find("source")['src']
-        ip_list = self.get_ip_list()
-        proxies = self.get_random_ip(ip_list)
-        uriList = self.get_uri_from_m3u8(realAdr)
-        i = 1
+        print(bsobj)
+        if any(bsobj):
+            return False
+        else:
+            realAdr = bsobj.find(id="video-player").find("source")['src']
+            ip_list = self.get_ip_list()
+            proxies = self.get_random_ip(ip_list)
+            uriList = self.get_uri_from_m3u8(realAdr)
+            i = 1
         for key in uriList: 
             if i%50==0:
                 print("休眠10s")
@@ -92,12 +97,12 @@ class ViedeoCrawler():
         if y=='y':
             files = os.listdir(self.down_path)
             for filena in files:
-                del_file = self.down_path + ' \' + filena
+                del_file = self.down_path + ' \\' + filena
                 os.remove(del_file)
             print("删除完成") 
         else:
             print("不删除，程序结束")
 if __name__=='__main__':
-    crawler = ViedeoCrawler()
+    crawler = VideoCrawler()
     crawler.run()                                                         
 
